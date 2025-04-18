@@ -1,6 +1,22 @@
 <?php
-$nameErr = $emailErr = $genderErr = $websiteErr = "";
-$name = $email = $gender = $comment = $website = "";
+
+session_start(); 
+
+if (!isset($_SESSION['email'])) {
+    header("Location: Login.php");
+    exit();
+}
+
+// Logout
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header("Location: Login.php"); 
+    exit();
+}
+
+
+$nameErr = $emailErr = $websiteErr = "";
+$name = $email  = $comment = $website = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["name"])) {
@@ -45,8 +61,8 @@ function test_input($data) {
 
 <body>  
 <div>
-    <form method="post" action="login.php">
-        <button type="submit" id ="btn_logout" name="logout" value="Logout">Logout</button>
+    <form method="post" action="">
+        <button type="submit" id="btn_logout" name="logout" value="Logout">Logout</button>
     </form>
 </div>
 
@@ -138,7 +154,7 @@ function test_input($data) {
             }
         }
 
-        fclose($data); // Close the file after reading
+        fclose($data);
         ?>
     </td>
 </table>
